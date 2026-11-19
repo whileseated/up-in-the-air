@@ -4,7 +4,11 @@
 
 body { font-size: 14px; }
 .app { min-height: 100vh; background: var(--bg); color: var(--ink); }
-:root { --gutter: clamp(20px, 4vw, 56px); }
+:root {
+  --gutter: clamp(20px, 4vw, 56px);
+  --pin: #b9dfa8;      /* pinned plane's dot on the plot */
+  --pin-edge: #4c7a3a; /* its outline, so it holds up on the cream paper */
+}
 
 .eyebrow { font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-3); }
 .eyebrow-sm { font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-3); }

@@ -291,13 +291,16 @@ function renderPlot(all: View[], r: number): void {
       const t = ((v.p.track ?? 0) * Math.PI) / 180;
       const len = v.p.ground || v.p.track === null ? 0 : hi ? 20 : 13;
       const color = hi ? "var(--accent)" : v.p.ground ? "var(--ink-3)" : "var(--ink)";
-      const fill = v.p.ground ? "var(--paper)" : color;
+      const pinned = pin === v.p.hex;
+      // a pinned plane's dot turns pale green; hover alone only enlarges it
+      const fill = pinned ? "var(--pin)" : v.p.ground ? "var(--paper)" : color;
+      const ring = pinned ? "var(--pin-edge)" : color;
       const label = v.p.ground && !hi ? "" : v.flight;
       return {
         hi,
         svg: `<g class="dot${hi ? " is-sel" : ""}" data-hex="${esc(v.p.hex)}">
           ${len ? `<line x1="${x}" y1="${y}" x2="${x + Math.sin(t) * len}" y2="${y - Math.cos(t) * len}" stroke="${color}" stroke-width="1.5"></line>` : ""}
-          <circle cx="${x}" cy="${y}" r="${hi ? 6 : 4}" fill="${fill}" stroke="${color}" stroke-width="1.5"></circle>
+          <circle cx="${x}" cy="${y}" r="${hi ? 6 : 4}" fill="${fill}" stroke="${ring}" stroke-width="1.5"></circle>
           <circle cx="${x}" cy="${y}" r="12" fill="transparent"></circle>
           ${label ? `<text class="dot-label" x="${x + 8}" y="${y - 6}" fill="${color}">${esc(label)}</text>` : ""}
         </g>`,
