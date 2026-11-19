@@ -292,8 +292,10 @@ function renderPlot(all: View[], r: number): void {
       const len = v.p.ground || v.p.track === null ? 0 : hi ? 20 : 13;
       const color = hi ? "var(--accent)" : v.p.ground ? "var(--ink-3)" : "var(--ink)";
       const pinned = pin === v.p.hex;
-      // a pinned plane's dot turns pale green; hover alone only enlarges it
-      const fill = pinned ? "var(--pin)" : v.p.ground ? "var(--paper)" : color;
+      // hovered: hollow (paper-filled, so grid lines don't show through);
+      // pinned: pale green; hover wins while the pointer is on it
+      const fill =
+        hover === v.p.hex || v.p.ground ? "var(--paper)" : pinned ? "var(--pin)" : color;
       const ring = pinned ? "var(--pin-edge)" : color;
       const label = v.p.ground && !hi ? "" : v.flight;
       return {
