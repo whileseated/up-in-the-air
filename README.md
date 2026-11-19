@@ -1,10 +1,10 @@
 # up in the air
 
-A small web page that lists the aircraft near a point you choose: airline, flight, route, aircraft type, altitude, climb/descent, speed, heading and distance. It has a compass plot, an altitude ladder, a sortable table and a list of what's on the ground. It's text only, with no photos, nor maps.
+A small web app that lists aircraft near a point you choose: airline, flight, route, aircraft type, altitude, climb/descent, speed, heading and distance. It has a compass plot, an altitude ladder, a sortable table and a list of what's on the ground. It's text only, with no photos, nor maps.
 
 It runs as one Docker container. It needs no API keys or accounts and no hardware such as an ADS-B receiver: positions come from free public ADS-B feeds.
 
-Inspired by [dmellok's tesserae widget project](https://github.com/dmellok/tesserae-widget-overhead)
+Inspired by [dmellok's tesserae widget project](https://github.com/dmellok/tesserae-widget-overhead).
 
 ![Up in the air dash](img/1b.png)
 
@@ -87,15 +87,6 @@ To use a port other than 9030, change the left side of `ports:` in `docker-compo
 
 ---
 
-## Before you expose it
-
-- **The page shows your coordinates** in its footer, and the plot is centered on them. If `LAT`/`LON` is your home, don't put the page on the open internet without a login in front of it. To make it reachable only from the machine it runs on, change `ports:` to `"127.0.0.1:9030:9030"`.
-- **The app has no login.** Anyone who can reach the port can see the page and press **Poll now**.
-- **Visitors' browsers load fonts from Google Fonts** (Inter and Newsreader). Nothing else leaves the browser; all aircraft data comes through your server.
-
-
----
-
 ## Where the data comes from (please be polite to it)
 
 | Data | Source | Limits |
@@ -116,7 +107,6 @@ Lowering `REFRESH_S` a lot will get you rate-limited, adsb.lol first. Other apps
 The footer credits the data sources. Please keep that credit if you change the page.
 
 ---
-
 
 ## Changing it
 
