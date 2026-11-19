@@ -292,10 +292,13 @@ function renderPlot(all: View[], r: number): void {
       const len = v.p.ground || v.p.track === null ? 0 : hi ? 20 : 13;
       const color = hi ? "var(--accent)" : v.p.ground ? "var(--ink-3)" : "var(--ink)";
       const pinned = pin === v.p.hex;
-      // hovered: hollow (paper-filled, so grid lines don't show through);
-      // pinned: pale green; hover wins while the pointer is on it
-      const fill =
-        hover === v.p.hex || v.p.ground ? "var(--paper)" : pinned ? "var(--pin)" : color;
+      // pinned: pale green (shows the moment it's pinned, even under the pointer);
+      // hovered: hollow (paper-filled, so grid lines don't show through)
+      const fill = pinned
+        ? "var(--pin)"
+        : hover === v.p.hex || v.p.ground
+          ? "var(--paper)"
+          : color;
       const ring = pinned ? "var(--pin-edge)" : color;
       const label = v.p.ground && !hi ? "" : v.flight;
       return {
@@ -569,7 +572,9 @@ document.addEventListener("mouseover", (e) => {
     applySel();
   }
 });
-document.addEventListener("click", (e) => {
+// pin on press (not release) so the plot updates the instant the button goes down
+document.addEventListener("pointerdown", (e) => {
+  if (e.button !== 0) return;
   const h = hexOf(e.target);
   if (!h) return;
   pin = pin === h ? null : h;
