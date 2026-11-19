@@ -4,7 +4,9 @@ A small web page that lists the aircraft near a point you choose: airline, fligh
 
 It runs as one Docker container. It needs no API keys or accounts and no hardware such as an ADS-B receiver: positions come from free public ADS-B feeds.
 
-![Up in the air dash](img/1.png)
+Inspired by [dmellok's tesserae widget project](https://github.com/dmellok/tesserae-widget-overhead)
+
+![Up in the air dash](img/1b.png)
 
 ---
 
@@ -91,25 +93,6 @@ To use a port other than 9030, change the left side of `ports:` in `docker-compo
 - **The app has no login.** Anyone who can reach the port can see the page and press **Poll now**.
 - **Visitors' browsers load fonts from Google Fonts** (Inter and Newsreader). Nothing else leaves the browser; all aircraft data comes through your server.
 
----
-
-## Running it behind a reverse proxy
-
-At its own hostname (e.g. `planes.example.com`), proxy everything to the container's port 9030. Nothing else is needed.
-
-Under a path (e.g. `example.com/planes/`), strip the prefix and send it in `X-Forwarded-Prefix` so the page builds its links correctly. For nginx:
-
-```nginx
-location /planes/ {
-    proxy_pass http://127.0.0.1:9030/;          # trailing slash: strips /planes
-    proxy_set_header X-Forwarded-Prefix /planes;
-    proxy_set_header Host $host;
-    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-    proxy_set_header X-Forwarded-Proto $scheme;
-}
-```
-
-If the page loads unstyled or stays on "loading…", the prefix header is missing.
 
 ---
 
@@ -134,19 +117,6 @@ The footer credits the data sources. Please keep that credit if you change the p
 
 ---
 
-## Troubleshooting
-
-| You see | Means | Do |
-|---|---|---|
-| Container exits right away; logs say `set LAT to your latitude…` | `.env` is missing or `LAT`/`LON` aren't valid numbers. | Fix `.env` (step 2), then `docker compose up -d`. |
-| `env file … .env not found` | You skipped `cp .env.example .env`. | Do step 2. |
-| "No position feed is answering right now" | Both feeds failed: no internet from the container, DNS trouble, or both rate-limited. | Run `docker compose logs`. The message names each feed's error, and the page retries every minute. |
-| "rate limited (HTTP 429)" | You've hit a feed's daily or per-second limit. | Raise `REFRESH_S`, or check what else on your network polls adsb.lol. It clears on its own. |
-| "No aircraft within N nm right now" | The feed answered and nothing is there. | Try a bigger radius. Coverage depends on volunteer receivers near you. |
-| Lots of "Looking up…" | New planes waiting on adsbdb. | Wait; the page re-checks every few seconds. |
-| Port 9030 already in use | Another app has the port. | Change `ports:` (see Settings). |
-
----
 
 ## Changing it
 
