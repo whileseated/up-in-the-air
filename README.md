@@ -1,6 +1,6 @@
 # up in the air
 
-A small web app that lists aircraft near a point you choose: airline, flight, route, aircraft type, altitude, climb/descent, speed, heading and distance. It has a compass plot, an altitude ladder, a sortable table and a list of what's on the ground. It's text only, with no photos, nor maps.
+A small web app that lists aircraft near a point you choose: airline, flight, route, aircraft type, altitude, climb/descent, speed, heading and distance. It has a compass plot, an altitude ladder, a sortable table and a list of what's on the ground. No photos or map tiles: just the data and a few simple charts.
 
 It runs as one Docker container. It needs no API keys or accounts and no hardware such as an ADS-B receiver: positions come from free public ADS-B feeds.
 
