@@ -1,0 +1,17 @@
+# secrets / your location
+.env
+
+# lookup cache (docker-compose.yml mounts ./data)
+data/
+
+# build output and dependencies
+frontend/node_modules/
+frontend/dist/
+static/app.js
+__pycache__/
+*.pyc
+
+# design-tool exports (mockup, its runtime, design-system copy): not part of the app
+design/
+
+.DS_Store

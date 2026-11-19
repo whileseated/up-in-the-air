@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>up in the air</title>
+    <!-- design tokens (CSS variables): colours, type, spacing -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='ds/fonts.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ds/colors.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ds/typography.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ds/spacing.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='ds/base.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        // script_root carries X-Forwarded-Prefix when served under a path (README: reverse proxy).
+        window.API_BASE_URL = '{{ request.script_root }}/api';
+        window.UITA_RADII = {{ radii|list|tojson }};
+        window.UITA_DEFAULT_NM = {{ radius|tojson }};
+    </script>
+</head>
+<body>
+<div class="app">
+    <header class="top">
+        <div class="brand">
+            <span class="wordmark">up in the air</span>
+            <span class="metaline" id="meta">loading…</span>
+        </div>
+        <div class="controls">
+            <div class="radius">
+                <span class="eyebrow-sm">Within</span>
+                <div class="seg" id="radius" role="group" aria-label="Radius in nautical miles">
+                    {% for r in radii %}<button type="button" data-nm="{{ '%g' % r }}">{{ '%g' % r }}</button>{% endfor %}
+                </div>
+                <span class="unit">nm</span>
+            </div>
+            <button type="button" class="btn-ghost" id="poll-now">Poll now ↻</button>
+        </div>
+    </header>
+
+    <div class="notice" id="notice" hidden></div>
+
+    <section class="stats" id="stats"></section>
+
+    <section class="viz">
+        <div class="viz-col">
+            <div class="viz-head">
+                <div class="eyebrow">Positions</div>
+                <div class="caption">bearing &amp; distance from center · tick = heading</div>
+            </div>
+            <div class="plot-frame"><div class="plot" id="plot"></div></div>
+        </div>
+        <div class="viz-col">
+            <div class="viz-head">
+                <div class="eyebrow">Altitude</div>
+                <div class="caption" id="alt-scale"></div>
+            </div>
+            <div class="ladder" id="ladder"></div>
+        </div>
+    </section>
+
+    <section class="list">
+        <div class="list-head">
+            <h2 class="h2">In the air</h2>
+            <span class="caption" id="air-caption"></span>
+        </div>
+        <div class="table-scroll">
+            <div class="table">
+                <div class="thead" id="thead"></div>
+                <div id="rows"></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="ground" id="ground-wrap" hidden>
+        <button type="button" class="ground-toggle" id="ground-toggle">
+            <span class="h2">On the ground</span>
+            <span class="caption" id="ground-caption"></span>
+        </button>
+        <div class="ground-grid" id="ground"></div>
+    </section>
+
+    <footer class="foot">
+        <span><span class="wordmark-sm">up in the air</span> · positions: <span id="feed">adsb.fi / adsb.lol</span> · airline, route, type: adsbdb.com</span>
+        <span id="center"></span>
+    </footer>
+</div>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>

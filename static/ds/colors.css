@@ -1,0 +1,23 @@
+:root{
+/* Base palette — warm cream + ink */
+--bg:#f3eee4;
+--paper:#faf6ec;
+--ink:#1a1814;
+--ink-2:#3d3830;
+--ink-3:#7a7268;
+--rule:rgba(26,24,20,0.14);
+--accent:#5b4a2e;
+--tint-music:#ead8d2; /* rosy panel behind device mockups */
+--device-shell:#0e0d0b; /* phone bezel */
+/* Semantic aliases */
+--surface-page:var(--bg);
+--surface-card:var(--paper);
+--surface-panel:var(--tint-music);
+--text-body:var(--ink);
+--text-secondary:var(--ink-2);
+--text-muted:var(--ink-3);
+--border-rule:var(--rule);
+--btn-primary-bg:var(--ink);
+--btn-primary-fg:var(--paper);
+--shadow-device:0 30px 80px -30px rgba(26,24,20,0.4);
+}

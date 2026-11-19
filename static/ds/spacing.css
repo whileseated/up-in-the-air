@@ -1,0 +1,17 @@
+:root{
+/* Section + shell spacing (from style.css) */
+--page-max-width:1280px;
+--pad-x:56px; /* section horizontal padding, 28px under 900px */
+--pad-section:96px; /* big section vertical padding */
+--pad-nav:28px 56px 24px;
+--gap-grid:40px; /* head grids */
+--gap-feature:20px; /* label→body */
+--col-label:120px; /* feature table label col */
+--col-margin:160px; /* prose/app-head left gutter col */
+/* Radii */
+--radius-pill:999px; /* buttons, social circles */
+--radius-callout:4px;
+--radius-mark:7px; /* 28px app icon */
+--radius-device:44px;
+--radius-device-screen:36px;
+}

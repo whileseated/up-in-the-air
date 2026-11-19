@@ -1,0 +1,12 @@
+{
+  "name": "up-in-the-air-frontend",
+  "private": true,
+  "scripts": {
+    "check": "tsc --noEmit",
+    "build": "npm run check && esbuild src/main.ts --bundle --minify --target=es2020 --outfile=dist/app.js"
+  },
+  "devDependencies": {
+    "esbuild": "0.24.2",
+    "typescript": "5.6.3"
+  }
+}

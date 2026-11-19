@@ -1,0 +1,6 @@
+*,*::before,*::after{box-sizing:border-box}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:14px;line-height:1.55;letter-spacing:-0.005em;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}
+a{color:inherit}
+a:hover{opacity:0.85}
+img{max-width:100%;display:block}
+hr.rule{height:1px;background:var(--rule);border:0;margin:0}

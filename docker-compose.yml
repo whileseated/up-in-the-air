@@ -1,0 +1,23 @@
+# Standalone install of "up in the air". From this folder:
+#   cp .env.example .env     # then put your LAT/LON in .env
+#   docker compose up -d --build
+# and open http://localhost:9030/
+services:
+  up-in-the-air:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      - PORT=9030
+      - DATA_DIR=/app/data
+    ports:
+      # Reachable from your whole network. The page shows your coordinates,
+      # so use "127.0.0.1:9030:9030" instead if only this machine should see it.
+      - "9030:9030"
+    volumes:
+      - ./data:/app/data   # adsbdb lookup cache only; safe to delete
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://127.0.0.1:9030/healthz', timeout=3)"]
+      interval: 60s
+      timeout: 5s
+      retries: 3
